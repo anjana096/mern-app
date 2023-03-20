@@ -9,10 +9,10 @@ app.use(express.json());
 app.use(cors());
 app.use("/books", router); // localhost:5000/books
 
-mongoose
-  .connect(
-    "mongodb+srv://admin:1234@cluster0.txhlpwj.mongodb.net/?retryWrites=true&w=majority"
-  )
+mongoose.connect("mongodb://localhost:27017/local", {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+})
   .then(() => console.log("Connected To Database"))
   .then(() => {
     app.listen(5000);

@@ -32,23 +32,27 @@ const addBook = async (req, res, next) => {
   const { name, author, description, price, available, image } = req.body;
   let book;
   try {
-    book = new Book({
+    await Book.create({
       name,
       author,
       description,
       price,
       available,
       image,
-    });
-    await book.save();
+    })
+    // book = new Book({
+    //   name,
+    //   author,
+    //   description,
+    //   price,
+    //   available,
+    //   image,
+    // });
+    // await book.save();
+    return res.status(200).json({ book: req.body });
   } catch (err) {
-    console.log(err);
+    return res.status(500).json({ message: err.message });
   }
-
-  if (!book) {
-    return res.status(500).json({ message: "Unable To Add" });
-  }
-  return res.status(201).json({ book });
 };
 
 const updateBook = async (req, res, next) => {
